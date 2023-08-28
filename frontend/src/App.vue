@@ -1,7 +1,9 @@
 <template>
-  <TheNavigation />
-  <div class="container">
-    <router-view :key="$router.path"></router-view>
+  <div class="app bg-gray-100 w-screen h-screen">
+    <TheNavigation />
+    <div class="container mx-auto py-4">
+      <router-view :key="$router.path"></router-view>
+    </div>
   </div>
 </template>
 

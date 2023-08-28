@@ -1,5 +1,7 @@
 <template>
-  <div v-if="lista" class="lista">Lista {{ lista.descricao }}</div>
+  <div v-if="lista" class="lista">
+    <h1 class="text-2xl font-semibold mb-6">{{ lista.descricao }}</h1>
+  </div>
 </template>
 
 <script>
