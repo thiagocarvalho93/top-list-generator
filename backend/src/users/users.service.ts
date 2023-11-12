@@ -18,7 +18,11 @@ export class UsersService {
   }
 
   findAll() {
-    return this.prismaService.user.findMany();
+    return this.prismaService.user.findMany({
+      include: {
+        Post: true,
+      },
+    });
   }
 
   findOne(id: number) {
