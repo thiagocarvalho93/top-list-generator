@@ -17,10 +17,11 @@ export class UsersService {
     });
   }
 
-  findAll() {
+  findAll({ name, email }) {
     return this.prismaService.user.findMany({
-      include: {
-        Post: true,
+      where: {
+        name: { contains: name },
+        email: { contains: email },
       },
     });
   }

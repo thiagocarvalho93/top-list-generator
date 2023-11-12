@@ -22,8 +22,10 @@ export class PostsService {
     });
   }
 
-  findAll() {
-    return this.prismaService.post.findMany();
+  findAll({ title }) {
+    return this.prismaService.post.findMany({
+      where: { title: { contains: title } },
+    });
   }
 
   findOne(id: number) {
