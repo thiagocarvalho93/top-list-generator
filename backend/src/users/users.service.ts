@@ -19,6 +19,7 @@ export class UsersService {
       },
     });
 
+    delete response.passwordHash;
     return response;
   }
 
@@ -30,6 +31,7 @@ export class UsersService {
       },
     });
 
+    response.map((x) => delete x.passwordHash);
     return response;
   }
 
@@ -38,6 +40,7 @@ export class UsersService {
       where: { id },
     });
 
+    delete response.passwordHash;
     return response;
   }
 
@@ -46,6 +49,7 @@ export class UsersService {
       where: { name },
     });
 
+    delete response.passwordHash;
     return response;
   }
 
@@ -55,6 +59,7 @@ export class UsersService {
       data: updateUserDto,
     });
 
+    delete response.passwordHash;
     return response;
   }
 
@@ -63,6 +68,7 @@ export class UsersService {
       where: { id },
     });
 
+    delete response.passwordHash;
     return response;
   }
 }
