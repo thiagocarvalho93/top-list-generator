@@ -1,52 +1,68 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
-  create({ email, name, role, passwordHash }) {
-    return this.prismaService.user.create({
+  async create({ email, name, password }) {
+    const saltOrRounds = 10;
+    const hash = await bcrypt.hash(password, saltOrRounds);
+
+    const response = await this.prismaService.user.create({
       data: {
         email,
         name,
-        role,
-        passwordHash,
+        role: 'USER',
+        passwordHash: hash,
       },
     });
+
+    return response;
   }
 
-  findAll({ name, email }) {
-    return this.prismaService.user.findMany({
+  async findAll({ name, email }) {
+    const response = await this.prismaService.user.findMany({
       where: {
         name: { contains: name },
         email: { contains: email },
       },
     });
+
+    return response;
   }
 
-  findOne(id: number) {
-    return this.prismaService.user.findFirstOrThrow({
+  async findOne(id: number) {
+    const response = await this.prismaService.user.findFirstOrThrow({
       where: { id },
     });
+
+    return response;
   }
 
-  findOneByUsername(name: string) {
-    return this.prismaService.user.findFirstOrThrow({
+  async findOneByUsername(name: string) {
+    const response = await this.prismaService.user.findFirstOrThrow({
       where: { name },
     });
+
+    return response;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.prismaService.user.update({
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const response = await this.prismaService.user.update({
       where: { id },
       data: updateUserDto,
     });
+
+    return response;
   }
 
-  remove(id: number) {
-    return this.prismaService.user.delete({
+  async remove(id: number) {
+    const response = await this.prismaService.user.delete({
       where: { id },
     });
+
+    return response;
   }
 }
