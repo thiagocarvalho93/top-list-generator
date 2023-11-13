@@ -12,13 +12,14 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  role      Role       @default(USER)
-  name      String     @db.VarChar(255)
-  email     String     @unique
-  Post      Post[]
-  Follower  Follower[]
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  role         Role       @default(USER)
+  name         String     @unique @db.VarChar(255)
+  email        String     @unique @db.VarChar(255)
+  passwordHash String     @db.VarChar(255)
+  Post         Post[]
+  Follower     Follower[]
 }
 
 model Follower {
